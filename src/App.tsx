@@ -1,5 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { supabase } from './lib/supabase'
 import { AnimatePresence } from 'framer-motion'
 import { Toaster } from 'react-hot-toast'

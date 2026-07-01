@@ -1,4 +1,4 @@
-import { useState, useEffect, type ReactNode } from 'react'
+import { useState, useEffect, type ReactNode, Component, type ErrorInfo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link, useNavigate } from 'react-router-dom'
 import {
@@ -125,17 +125,65 @@ function Sidebar({ active, onNavigate, onClose }: { active: string; onNavigate: 
   )
 }
 
+/* ─── Error Boundary ─── */
+class SectionErrorBoundary extends Component<
+  { children: ReactNode; sectionKey: string },
+  { hasError: boolean; error: string }
+> {
+  constructor(props: { children: ReactNode; sectionKey: string }) {
+    super(props)
+    this.state = { hasError: false, error: '' }
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error: error.message }
+  }
+
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.error('[SectionErrorBoundary]', error, info)
+  }
+
+  componentDidUpdate(prev: { sectionKey: string }) {
+    if (prev.sectionKey !== this.props.sectionKey && this.state.hasError) {
+      this.setState({ hasError: false, error: '' })
+    }
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="flex flex-col items-center justify-center py-24 gap-4">
+          <div className="w-14 h-14 rounded-2xl bg-rose-100 dark:bg-rose-500/10 flex items-center justify-center">
+            <span className="text-2xl">⚠️</span>
+          </div>
+          <div className="text-center">
+            <p className="font-semibold text-neutral-900 dark:text-neutral-100">Something went wrong</p>
+            <p className="text-body-sm text-neutral-500 mt-1">This section couldn't load. Please try again.</p>
+          </div>
+          <button
+            onClick={() => this.setState({ hasError: false, error: '' })}
+            className="px-4 py-2 rounded-xl bg-accent-500 text-white text-body-sm font-medium hover:bg-accent-600 transition-colors"
+          >
+            Retry
+          </button>
+        </div>
+      )
+    }
+    return this.props.children
+  }
+}
+
 /* ─── Section Map ─── */
-const SECTIONS: Record<string, ReactNode> = {
-  dashboard: <DashboardHome />,
-  appointments: <AppointmentsSection />,
-  queue: <QueueSection />,
-  medicines: <MedicinesSection />,
-  reports: <ReportsSection />,
-  chat: <ChatSection />,
-  notifications: <NotificationsSection />,
-  profile: <ProfileSection />,
-  settings: <SettingsDashSection />,
+const SECTIONS: Record<string, () => ReactNode> = {
+  dashboard: () => <DashboardHome />,
+  appointments: () => <AppointmentsSection />,
+  queue: () => <QueueSection />,
+  medicines: () => <MedicinesSection />,
+  reports: () => <ReportsSection />,
+  chat: () => <ChatSection />,
+  notifications: () => <NotificationsSection />,
+  profile: () => <ProfileSection />,
+  settings: () => <SettingsDashSection />,
 }
 
 /* ─── Patient Dashboard ─── */
@@ -233,7 +281,9 @@ export default function PatientDashboard() {
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.25, ease: [0.25, 1, 0.5, 1] }}
             >
-              {SECTIONS[activeSection]}
+              <SectionErrorBoundary sectionKey={activeSection}>
+                {SECTIONS[activeSection]?.()}
+              </SectionErrorBoundary>
             </motion.div>
           </AnimatePresence>
         </main>

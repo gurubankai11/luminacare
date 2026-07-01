@@ -6,20 +6,30 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatDate(date: string | Date, fmt = 'MMM d, yyyy') {
-  return format(new Date(date), fmt)
+export function formatDate(date: string | Date | undefined | null, fmt = 'MMM d, yyyy') {
+  if (!date) return 'N/A'
+  const d = new Date(date)
+  if (isNaN(d.getTime())) return 'Invalid Date'
+  return format(d, fmt)
 }
 
-export function formatTime(time: string) {
-  const [hours, minutes] = time.split(':')
+export function formatTime(time: string | undefined | null) {
+  if (!time) return 'N/A'
+  const parts = time.split(':')
+  if (parts.length < 2) return time
+  const [hours, minutes] = parts
   const h = parseInt(hours)
+  if (isNaN(h)) return time
   const ampm = h >= 12 ? 'PM' : 'AM'
   const hour12 = h % 12 || 12
   return `${hour12}:${minutes} ${ampm}`
 }
 
-export function timeAgo(date: string | Date) {
-  return formatDistanceToNow(new Date(date), { addSuffix: true })
+export function timeAgo(date: string | Date | undefined | null) {
+  if (!date) return 'N/A'
+  const d = new Date(date)
+  if (isNaN(d.getTime())) return 'Invalid Date'
+  return formatDistanceToNow(d, { addSuffix: true })
 }
 
 export function generateAppointmentNumber() {

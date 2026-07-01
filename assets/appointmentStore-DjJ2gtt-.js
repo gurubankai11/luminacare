@@ -1,4 +1,4 @@
-import{o as e}from"./Button-C2XT0zwh.js";import{i as t,l as n,t as r}from"./index-6fKa2t7R.js";var i=t((t,i)=>({appointments:[],todayQueue:[],isLoading:!1,error:null,fetchAppointments:async()=>{let e=r.getState().user;if(e){t({isLoading:!0,error:null});try{let r=n.from(`appointments`).select(`
+import{o as e}from"./Button-C2XT0zwh.js";import{i as t,l as n,t as r}from"./index-CngDKK5a.js";var i=t((t,i)=>({appointments:[],todayQueue:[],isLoading:!1,error:null,fetchAppointments:async()=>{let e=r.getState().user;if(e){t({isLoading:!0,error:null});try{let r=n.from(`appointments`).select(`
           *,
           patient:profiles!patient_id(name, avatar_url, phone),
           doctor:profiles!doctor_id(name, avatar_url, specialty)

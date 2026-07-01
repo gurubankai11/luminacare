@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Bell, Check, X } from 'lucide-react'
-import { cn, formatTime } from '../../lib/utils'
+import { cn, timeAgo } from '../../lib/utils'
 import { useNotificationStore } from '../../stores/notificationStore'
 
 export default function NotificationBell() {
@@ -80,7 +80,7 @@ export default function NotificationBell() {
                           <p className={cn("text-sm font-medium", !n.read ? "text-neutral-900 dark:text-neutral-100" : "text-neutral-700 dark:text-neutral-300")}>
                             {n.title}
                           </p>
-                          <span className="text-xs text-neutral-400 flex-shrink-0 ml-2">{formatTime(n.created_at)}</span>
+                          <span className="text-xs text-neutral-400 flex-shrink-0 ml-2">{timeAgo(n.created_at)}</span>
                         </div>
                         <p className="text-xs text-neutral-500 line-clamp-2">{n.message}</p>
                       </div>

@@ -125,7 +125,7 @@ export const useAuthStore = create<AuthStore>()(
         try {
           const { error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
-            options: { redirectTo: window.location.origin + '/dashboard/patient' },
+            options: { redirectTo: window.location.origin + import.meta.env.BASE_URL + 'dashboard/patient' },
           })
           if (error) {
             set({ isLoading: false })
@@ -142,7 +142,7 @@ export const useAuthStore = create<AuthStore>()(
         set({ isLoading: true })
         try {
           const { error } = await supabase.auth.resetPasswordForEmail(email, {
-            redirectTo: window.location.origin + '/update-password',
+            redirectTo: window.location.origin + import.meta.env.BASE_URL + 'update-password',
           })
           set({ isLoading: false })
           return { error: error ? error.message : null }

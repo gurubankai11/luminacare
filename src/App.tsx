@@ -120,7 +120,7 @@ function AppContent() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.PROD ? '/luminacare' : '/'}>
       <AppContent />
       <Toaster
         position="top-right"

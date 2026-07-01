@@ -3,11 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://gurubankai11.github.io/luminacare",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build && node -e \"require('fs').copyFileSync('dist/index.html', 'dist/404.html')\"",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@google/genai": "^2.10.0",
@@ -34,6 +37,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.2",
     "autoprefixer": "^10.5.2",
+    "gh-pages": "^6.3.0",
     "oxlint": "^1.69.0",
     "postcss": "^8.5.15",
     "puppeteer": "^25.2.1",

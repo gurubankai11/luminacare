@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { MapPin, Phone, Clock, Mail, Navigation } from 'lucide-react'
 import PageWrapper from '../components/layout/PageWrapper'
@@ -9,6 +10,7 @@ import { useState, useEffect } from 'react'
 
 
 export default function BranchesPage() {
+  const navigate = useNavigate();
   const [branches, setBranches] = useState<any[]>([])
 
   useEffect(() => {
@@ -116,7 +118,7 @@ export default function BranchesPage() {
                         variant="primary"
                         size="sm"
                         fullWidth
-                        onClick={() => window.location.href = '/book-appointment'}
+                        onClick={() => navigate('/book-appointment')}
                       >
                         Book Here
                       </Button>

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Star, Clock, Calendar, Stethoscope, Award } from 'lucide-react'
 import PageWrapper from '../components/layout/PageWrapper'
@@ -9,6 +10,7 @@ import { useState, useEffect } from 'react'
 
 
 export default function DoctorsPage() {
+  const navigate = useNavigate();
   const [doctors, setDoctors] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const isDevMode = import.meta.env.VITE_DEV_MODE === 'true'
@@ -129,7 +131,7 @@ export default function DoctorsPage() {
                       size="sm"
                       fullWidth
                       className="mt-5"
-                      onClick={() => window.location.href = '/book-appointment'}
+                      onClick={() => navigate('/book-appointment')}
                     >
                       Book Appointment
                     </Button>

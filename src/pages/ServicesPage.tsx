@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { ChevronRight, Stethoscope, Activity, Bone, FlaskConical, Syringe, Heart, Zap, Shield, Eye, Brain, Baby, Leaf } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import PageWrapper from '../components/layout/PageWrapper'
 import { Badge } from '../components/ui'
 import Button from '../components/ui/Button'
@@ -121,6 +121,7 @@ const colorMap: Record<string, string> = {
 }
 
 export default function ServicesPage() {
+  const navigate = useNavigate();
   return (
     <PageWrapper>
       {/* Hero */}
@@ -203,7 +204,7 @@ export default function ServicesPage() {
           <p className="text-body-lg text-neutral-500 dark:text-neutral-400 mb-8">
             Book a general consultation and let our doctors guide you to the right specialist.
           </p>
-          <Button variant="primary" size="xl" onClick={() => window.location.href = '/book-appointment'}>
+          <Button variant="primary" size="xl" onClick={() => navigate('/book-appointment')}>
             Book General Consultation
           </Button>
         </div>

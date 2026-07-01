@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Home, ArrowLeft } from 'lucide-react'
 import Button from '../components/ui/Button'
 
 export default function NotFoundPage() {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-cream-100 dark:bg-neutral-950 flex items-center justify-center p-6">
       <div className="text-center max-w-md">
@@ -35,7 +36,7 @@ export default function NotFoundPage() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Button variant="primary" size="lg" leftIcon={<Home size={16} />} onClick={() => window.location.href = '/'}>
+            <Button variant="primary" size="lg" leftIcon={<Home size={16} />} onClick={() => navigate('/')}>
               Go to Home
             </Button>
             <Button variant="ghost" size="lg" leftIcon={<ArrowLeft size={16} />} onClick={() => window.history.back()}>

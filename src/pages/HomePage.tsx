@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
 import {
   ArrowRight, Star, Shield, Clock, Heart, ChevronRight,
@@ -234,6 +234,7 @@ const TESTIMONIALS = [
 ]
 
 export default function HomePage() {
+  const navigate = useNavigate();
   const { scrollYProgress } = useScroll()
   const heroOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0])
   const heroY = useTransform(scrollYProgress, [0, 0.25], [0, -60])
@@ -321,7 +322,7 @@ export default function HomePage() {
               variant="primary"
               size="xl"
               rightIcon={<Calendar size={18} />}
-              onClick={() => window.location.href = '/book-appointment'}
+              onClick={() => navigate('/book-appointment')}
             >
               Book Appointment
             </Button>
@@ -329,7 +330,7 @@ export default function HomePage() {
               variant="ghost"
               size="xl"
               rightIcon={<ArrowRight size={18} />}
-              onClick={() => window.location.href = '/services'}
+              onClick={() => navigate('/services')}
               className="text-neutral-700 dark:text-neutral-300"
             >
               Explore Services
@@ -458,7 +459,7 @@ export default function HomePage() {
           </motion.div>
 
           <div className="text-center mt-10">
-            <Button variant="outline" size="lg" rightIcon={<ArrowRight size={16} />} onClick={() => window.location.href = '/services'}>
+            <Button variant="outline" size="lg" rightIcon={<ArrowRight size={16} />} onClick={() => navigate('/services')}>
               View All Services
             </Button>
           </div>
@@ -650,7 +651,7 @@ export default function HomePage() {
                       size="sm"
                       fullWidth
                       className="mt-5"
-                      onClick={() => window.location.href = '/book-appointment'}
+                      onClick={() => navigate('/book-appointment')}
                     >
                       Book Appointment
                     </Button>
@@ -662,7 +663,7 @@ export default function HomePage() {
           </div>
 
           <div className="text-center mt-10">
-            <Button variant="secondary" size="lg" rightIcon={<ArrowRight size={16} />} onClick={() => window.location.href = '/doctors'}>
+            <Button variant="secondary" size="lg" rightIcon={<ArrowRight size={16} />} onClick={() => navigate('/doctors')}>
               View All Doctors
             </Button>
           </div>
@@ -740,7 +741,7 @@ export default function HomePage() {
                 <Button
                   variant="secondary"
                   size="xl"
-                  onClick={() => window.location.href = '/book-appointment'}
+                  onClick={() => navigate('/book-appointment')}
                   className="bg-white text-accent-600 hover:bg-blue-50 border-transparent shadow-soft-lg"
                 >
                   Book Appointment
@@ -748,7 +749,7 @@ export default function HomePage() {
                 <Button
                   variant="ghost"
                   size="xl"
-                  onClick={() => window.location.href = '/contact'}
+                  onClick={() => navigate('/contact')}
                   className="text-white border-white/30 hover:bg-white/10"
                 >
                   Contact Us

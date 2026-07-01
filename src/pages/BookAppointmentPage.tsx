@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useForm, Controller } from 'react-hook-form'
@@ -57,6 +58,7 @@ function BookingConfirmation({ data, appointmentNumber, tokenNumber }: {
   appointmentNumber: string
   tokenNumber: number
 }) {
+  const navigate = useNavigate();
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
@@ -129,7 +131,7 @@ function BookingConfirmation({ data, appointmentNumber, tokenNumber }: {
       </div>
 
       <div className="flex flex-col sm:flex-row gap-3">
-        <Button variant="outline" size="md" fullWidth onClick={() => window.location.href = '/login/patient'}>
+        <Button variant="outline" size="md" fullWidth onClick={() => navigate('/login/patient')}>
           View in Dashboard
         </Button>
         <Button variant="primary" size="md" fullWidth onClick={() => window.location.reload()}>
@@ -142,6 +144,7 @@ function BookingConfirmation({ data, appointmentNumber, tokenNumber }: {
 
 /* ─── Main Page ─── */
 export default function BookAppointmentPage() {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [appointmentNumber, setAppointmentNumber] = useState('')
